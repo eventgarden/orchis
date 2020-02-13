@@ -1,0 +1,34 @@
+{
+  "name": "orchis",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "author": "Kieran Gillen",
+  "license": "MIT",
+  "engines": {
+    "node": "10.x.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": false,
+    "trailingComma": "es5",
+    "bracketSpacing": true
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.6.4",
+    "apollo-link-http": "^1.5.15",
+    "apollo-server": "^2.9.3",
+    "apollo-server-express": "^2.9.5",
+    "apollo-server-lambda": "^2.9.3",
+    "apollo-server-plugin-base": "^0.6.10",
+    "dotenv": "^8.2.0",
+    "graphql": "^14.6.0",
+    "prisma-client-lib": "^1.34.10",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5"
+  }
+}

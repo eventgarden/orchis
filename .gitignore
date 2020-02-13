@@ -1,0 +1,14 @@
+dist
+package-lock.json
+node_modules
+.idea
+.vscode
+*.log
+.env
+.env.staging
+.env.production
+.serverless
+.build
+.DS_Store
+devnotes.txt
+.helpers.md
