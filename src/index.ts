@@ -1,13 +1,28 @@
-import { prisma } from './prisma'
+import { serverOptions } from "./server"
+import { ApolloServer } from "apollo-server-express"
+import express from "express"
+import { checkJwt } from "./middleware/jwt"
+import { createGetUserMiddleware } from "./middleware/user"
+import { prisma } from "./prisma"
+import cors from "cors"
+import bodyParser from "body-parser"
 
-// A `main` function so that we can use async/await
-async function main() {
-  const newUser = await prisma.createUser({ name: 'Kieran' })
-  console.log(`Created new user: ${newUser.name} (ID: ${newUser.id})`)
+// Set up the server
+const server = new ApolloServer(serverOptions)
+const app = express()
+app.use(
+  checkJwt,
+  createGetUserMiddleware(prisma),
+  cors({
+    origin: [/\.event\.garden$/, "orchis-staging.herokuapp.com", /localhost/],
+    credentials: true,
+  }),
+  bodyParser.json()
+)
+server.applyMiddleware({ app, path: "/" })
+app.listen({ port: process.env.PORT || 4000 }, () =>
+  console.log(`🚀 Server ready at ${process.env.PORT || 4000}`)
+)
 
-  // Read all users from the database and print them to the console
-  const allUsers = await prisma.users()
-  console.log(allUsers)
-}
-
-main().catch(e => console.error(e))
+// Note: for more information on using ApolloServer with express, see
+// https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
