@@ -1,0 +1,46 @@
+# import Event from "./prisma/prisma.graphql"
+
+directive @isAuthenticated on FIELD_DEFINITION
+directive @hasRole(roles: [String]) on FIELD_DEFINITION
+directive @isOwner(type: String) on FIELD_DEFINITION
+directive @isOwnerOrHasRole(type: String, roles: [String]) on FIELD_DEFINITION
+
+type Event {
+  id: ID!
+  name: String!
+  description: String
+  startAt: DateTime
+  endAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  event(where: EventWhereUniqueInput!): Event
+  events(
+    where: EventWhereInput
+    orderBy: EventOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Event]!
+}
+
+type Mutation {
+  signup(email: String!, password: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  resetPassword(email: String!): ResetPasswordPayload!
+}
+
+type AuthPayload {
+  token: String!
+  refreshToken: String!
+  expiresIn: Int!
+  user: User!
+}
+
+type ResetPasswordPayload {
+  message: String!
+}

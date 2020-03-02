@@ -14,7 +14,7 @@ app.use(
   checkJwt,
   createGetUserMiddleware(prisma),
   cors({
-    origin: [/\.event\.garden$/, "orchis-staging.herokuapp.com", /localhost/],
+    origin: [/\.event\.garden$/, "eventgarden-oak.herokuapp.com", /localhost/],
     credentials: true,
   }),
   bodyParser.json()
